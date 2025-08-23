@@ -11,7 +11,7 @@ function Home () {
     return (
         <div>
             <div className='center-container'>
-                This is the home page
+                This is the Student home page
             </div>
             
             <div className='flex-container'>
@@ -22,7 +22,7 @@ function Home () {
                     <button className='question-format'> Leaderboard </button>
                 </div>
                 <div>
-                    <button className='question-format'> Exit </button>
+                    <button className='question-format' onClick={() => {navigate('/')}}> Exit </button>
                 </div>
             </div>
         </div>

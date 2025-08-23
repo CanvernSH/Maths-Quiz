@@ -121,7 +121,7 @@ export function QuizQ3() {
                 <button style={{marginLeft: '20px'}} onClick={handleSubmit}>Submit</button>
             </div>
             <div className='flex-container'>
-                <button onClick={() => navigate('/')} className='question-format'>Finish quiz</button>
+                <button onClick={() => navigate('/home')} className='question-format'>Finish quiz</button>
             </div>
             <div style={{transform: 'translate(0px, 40px'}} className='flex-container'>
                 Points = {points}
