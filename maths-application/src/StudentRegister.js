@@ -4,7 +4,7 @@ function StudentRegister() {
     const [firstName, setFirstName] = useState('');
 
     const handleRegister = async () => {
-        await fetch('http://localhost:5000/api/users', {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
             method: 'POST',
             headers: { 'Content-Type' : 'application/json' },
             body: JSON.stringify({firstName}),
