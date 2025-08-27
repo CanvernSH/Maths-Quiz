@@ -8,19 +8,32 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {rejectUnauthorized: false}
 });
 
 app.post('/api/users', async (req, res) => {
-    const {firstName} = req.body;
+    const {firstName, surname, dob, classID, password} = req.body;
     try{
-        await pool.query('INSERT INTO users (FirstName) VALUES ($1)', [firstName]);
+        await pool.query('INSERT INTO users (FirstName, Surname, DOB, ClassID, Password) VALUES ($1, $2, $3, $4, $5)', [firstName, surname, dob, parseInt(classID,10), password]);
         res.send('User added');
     } catch (err) {
         console.error(err);
         res.send('database error');
+    }
+});
+
+app.post('/api/login', async(req, res) => {
+    const {studentID, password} = req.body;
+    try{
+        const result = await pool.query(`SELECT Password FROM users WHERE id=${studentID}`);
+        if (password.trim() == result.rows[0].password.trim()) {
+            res.json(true);
+        };
+    } catch (err) {
+        console.error(err);
     }
 });
 

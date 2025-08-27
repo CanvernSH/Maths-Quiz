@@ -2,14 +2,23 @@ import react, {useState} from 'react';
 
 function StudentRegister() {
     const [firstName, setFirstName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [dob, setdob] = useState('');
+    const [classID, setClassID] = useState();
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleRegister = async () => {
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
-            method: 'POST',
-            headers: { 'Content-Type' : 'application/json' },
-            body: JSON.stringify({firstName}),
-        });
-        alert('33')
+        if (password == confirmPassword) {
+            await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
+                method: 'POST',
+                headers: { 'Content-Type' : 'application/json' },
+                body: JSON.stringify({firstName, surname, dob, classID, password}),
+            });
+            alert('33')
+        } else {
+            alert('Passwords must match')
+        }
     };
 
 
@@ -28,23 +37,23 @@ function StudentRegister() {
             </div>
             <div className='flex-container'>
                 Surname:
-                <textarea></textarea>
+                <textarea onChange={(e) => {setSurname(e.target.value)}}></textarea>
             </div>
             <div className='flex-container'>
                 Date of Birth:
-                <textarea></textarea>
+                <textarea onChange={(e) => {setdob(e.target.value)}}></textarea>
             </div>
             <div className='flex-container'>
                 Class ID:
-                <textarea></textarea>
+                <textarea onChange={(e) => {setClassID(e.target.value)}}></textarea>
             </div>
             <div className='flex-container'>
                 Password:
-                <textarea></textarea>
+                <textarea onChange={(e) => {setPassword(e.target.value)}}></textarea>
             </div>
             <div className='flex-container'>
                 Confirm Password:
-                <textarea></textarea>
+                <textarea onChange={(e) => {setConfirmPassword(e.target.value)}}></textarea>
             </div>
             <br></br>
             <div className='flex-container'>

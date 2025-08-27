@@ -28,7 +28,7 @@ export function Quiz() {
     return (
         <div>
             <div className='center-container'>
-                This is the quizz
+                This is the quiz
                 <br></br><br></br>
                 Q1: What is 7*8?
             </div>

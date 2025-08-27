@@ -4,7 +4,17 @@ import react, {useState} from 'react';
 function StudentLogin() {
     const navigate = useNavigate();
 
-    const handleLogin = () => {
+    const [studentID, setStudentID] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = async () => {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/login`, {
+            method: 'POST',
+            headers: { 'Content-Type' : 'application/json' },
+            body: JSON.stringify({studentID, password}),
+        });
+        console.log(response.json());
+
         navigate('/home');
     };
 
@@ -13,12 +23,12 @@ function StudentLogin() {
             <div className='center-container'></div>
             <div className='flex-container'>
                 Student ID:
-                <textarea></textarea>
+                <textarea onChange={(e) => {setStudentID(e.target.value)}}></textarea>
             </div>
             <br></br>
             <div className='flex-container'>
                 Password:
-                <textarea></textarea>
+                <textarea onChange={(e) => {setPassword(e.target.value)}}></textarea>
             </div>
             <br></br>
             <div className='flex-container'>
