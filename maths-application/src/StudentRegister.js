@@ -1,6 +1,9 @@
 import react, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 function StudentRegister() {
+    const navigate = useNavigate()
+
     const [firstName, setFirstName] = useState('');
     const [surname, setSurname] = useState('');
     const [dob, setdob] = useState('');
@@ -59,6 +62,12 @@ function StudentRegister() {
             <div className='flex-container'>
                 <button onClick={handleRegister}>Register</button>
             </div>
+            <br></br><br></br><br></br>
+
+            <div className='flex-container'>
+                <button onClick={() => {navigate('/')}}>Exit</button>
+            </div>
+
         </div>
     );
 }

@@ -40,7 +40,7 @@ function StudentLogin() {
             </div>
             <br></br> <br></br> <br></br>
             <div style={{textAlign: 'center'}}>
-                <button style={{backgroundColor: 'lightgreen'}}>Teacher account?</button>
+                <button style={{backgroundColor: 'lightgreen'}} onClick={() => {navigate('/teacherlogin')}}>Teacher account?</button>
             </div>
         </div>
     );
