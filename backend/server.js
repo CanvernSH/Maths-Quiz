@@ -49,8 +49,22 @@ app.post('/teacherregister', async (req, res) => {
             console.error(err);
         }
 
+    };
+});
+
+app.post('/teacherlogin', async (req, res) => {
+    const {teacherID, password} = req.body;
+
+    try {
+        const result = await pool.query(`SELECT password FROM teacherdetails WHERE id=${teacherID}`);
+        if (password.trim() == result.rows[0].password.trim()) {
+            res.send('good');
+        }
+    } catch (err) {
+        console.error(err);
     }
-})
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

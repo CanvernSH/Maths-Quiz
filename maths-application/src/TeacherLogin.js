@@ -7,7 +7,12 @@ function TeacherLogin () {
     const [teacherID, setTeacherID] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/teacherlogin`, {
+            method: 'POST',
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({teacherID, password})
+        });
         navigate('/teacherhome');
     }
 
@@ -16,13 +21,13 @@ function TeacherLogin () {
             <div className='center-container'></div>
             <div className='flex-container'>
                 Teacher ID:
-                <textarea></textarea>
+                <textarea onChange={(e) => {setTeacherID(e.target.value)}}></textarea>
             </div>
             <br></br>
 
             <div className='flex-container'>
                 Password:
-                <textarea></textarea>
+                <textarea onChange={(e) => {setPassword(e.target.value)}}></textarea>
             </div>
             <br></br>
 
