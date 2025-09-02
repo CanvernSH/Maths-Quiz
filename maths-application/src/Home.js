@@ -10,20 +10,19 @@ function Home () {
 
     return (
         <div>
-            <div className='center-container'>
-                This is the Student home page
-            </div>
+            <h2 style={{marginTop: '27vh', textAlign: 'center'}}>This is the Student home page</h2>
             
-            <div className='flex-container'>
+            <div style={{marginTop: '13vh'}} className='flex-container'>
                 <div>
                     <button onClick={handleQuizButton} className='question-format'>Start quiz</button>
                 </div>
                 <div>
                     <button className='question-format'> Leaderboard </button>
                 </div>
-                <div>
-                    <button className='question-format' onClick={() => {navigate('/')}}> Exit </button>
-                </div>
+            </div>
+
+            <div style={{marginTop: '2vh'}} className='flex-container'>
+                <button className='question-format' onClick={() => {navigate('/')}}> Exit </button>
             </div>
         </div>
     )

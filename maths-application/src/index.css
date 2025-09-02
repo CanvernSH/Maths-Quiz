@@ -16,12 +16,35 @@
     align-items: center;
     text-align: center;
     background-color: red;
-    color: blue;
+    color: black;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 20px;
+    height: 60px;
+    width: 120px;
 }
 
+
+.question-format2{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: red;
+    color: black;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    height: 40px;
+    width: 100px;
+    font-size: large;
+}
+
+.text-area1{
+  height: 60px;
+  width: 300px;
+  font-size: 20px;
+  text-align: center;
+}
 
 body {
   margin: 0;
