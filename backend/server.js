@@ -37,6 +37,21 @@ app.post('/api/login', async(req, res) => {
     }
 });
 
+
+app.post('/teacherregister', async (req, res) => {
+    const {firstName, surname, password, registerCode} = req.body;
+    if (registerCode == process.env.REGISTER_CODE) {
+        try {
+            await pool.query('INSERT INTO teacherdetails (firstName, surname, password) VALUES ($1, $2, $3)', [firstName, surname, password]);
+            res.send('good');
+
+        } catch (err) {
+            console.error(err);
+        }
+
+    }
+})
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
