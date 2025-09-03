@@ -2,18 +2,42 @@ import {useNavigate} from 'react-router-dom';
 import React, {useState, useEffect} from 'react';
 
 
-const questionArray = ['test1', 'test2'];
-const answerArray = [10, 20];
 
 export function Quiz() {
     const navigate = useNavigate('');
+
+    const [quizLoaded, setQuizLoaded] = useState(false);
+
+    const [questionArray, setQuestionArray] = useState([0]);
+    const [answerArray, setAnswerArray] = useState([0]);
+
+    const handleLoadQuiz = async () => {
+        const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/quizload`, {
+            method: 'POST',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify({})
+        });
+        const response = await result.json();
+        const json = response.rows[0];
+
+        setQuestionArray([json.q1.trim(), json.q2.trim(), json.q3.trim(), json.q4.trim(), json.q5.trim(), json.q6.trim(), json.q7.trim(),json.q8.trim() ,json.q9.trim() ,json.q10.trim()]);
+        setAnswerArray([json.a1.trim(), json.a2.trim(), json.a3.trim(), json.a4.trim(), json.a5.trim(), json.a6.trim(), json.a7.trim(),json.a8.trim() ,json.a9.trim() ,json.a10.trim()]);
+        setQuestionText(json.q1.trim());    
+    };
+
+
+    if (quizLoaded === false) {
+        handleLoadQuiz();
+        setQuizLoaded(true);
+    };
+
 
 
     const [response, setResponse] = useState();
     const [points, setPoints] = useState(0);
 
     let [questionNumber, setQuestionNumber] = useState(0);
-    const [questionText, setQuestionText] = useState(questionArray[questionNumber]);
+    const [questionText, setQuestionText] = useState('(Loading...)');
 
     const [correctAlready, setCorrectAlready] = useState(false);
 
@@ -40,12 +64,13 @@ export function Quiz() {
     };
 
 
+
     return (
         <div>
             <div style={{marginTop: '27vh', textAlign: 'center'}}>
                 <h2>This is the quiz</h2>
                 <br></br>
-                <p style={{fontSize: '20px'}}>{`Q${questionNumber+1}: ${questionText}`}</p>
+                <p style={{fontSize: '20px'}}>Q{questionNumber+1}: {questionText}</p>
             </div>
             <div style={{transform: 'translate(60px, 0px)', marginTop: '32px'}} className='flex-container'>
                 <textarea onChange={(e) => setResponse(e.target.value)} className='text-area1'></textarea>
