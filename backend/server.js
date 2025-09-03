@@ -65,6 +65,15 @@ app.post('/teacherlogin', async (req, res) => {
     }
 });
 
+app.post('/quizload', async (req, res) => {
+    try {
+      const result = await pool.query('SELECT * FROM quizdetails WHERE id=2');
+      res.json(result);
+    } catch (err) {
+    console.error(err);
+    }
+})
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
