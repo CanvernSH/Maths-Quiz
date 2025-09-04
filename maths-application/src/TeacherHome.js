@@ -10,7 +10,7 @@ function TeacherHome () {
             <br></br>
 
             <div className='flex-container'>
-                <button>Create New Quiz</button>
+                <button onClick={() => {navigate('/createquiz')}}>Create New Quiz</button>
                 <button>Select or Amend Quiz</button>
                 <button>Amend Student Details</button>
             </div>

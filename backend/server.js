@@ -74,6 +74,16 @@ app.post('/quizload', async (req, res) => {
     }
 })
 
+app.post('/createquiz', async (req, res) => {
+    const {q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10} = req.body;
+    try {
+        await pool.query('INSERT INTO quizdetails (q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)', [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10]);
+        res.send("good");
+    } catch (err) {
+        console.error(err);
+    }
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

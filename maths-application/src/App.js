@@ -7,6 +7,7 @@ import StudentRegister from './StudentRegister.js';
 import TeacherLogin from './TeacherLogin.js';
 import TeacherRegister from './TeacherRegister.js';
 import TeacherHome from './TeacherHome.js';
+import CreateQuiz from './CreateQuiz.js';
 
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
         <Route path='/teacherlogin' element={<TeacherLogin></TeacherLogin>} />
         <Route path='/teacherregister' element={<TeacherRegister></TeacherRegister>} />
         <Route path='/home' element={<Home></Home>} />
-        <Route path='teacherhome' element={<TeacherHome></TeacherHome>} />
         <Route path='/quiz' element={<Quiz></Quiz>} />
+        <Route path='teacherhome' element={<TeacherHome></TeacherHome>} />
+        <Route path='/createquiz' element={<CreateQuiz></CreateQuiz>} />
       </Routes>
     </BrowserRouter>
   );
