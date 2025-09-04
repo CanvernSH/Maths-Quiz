@@ -85,6 +85,17 @@ app.post('/createquiz', async (req, res) => {
 });
 
 
+app.post('/searchquizid', async (req, res) => {
+    const {quizID} = req.body;
+    try {
+        const result = await pool.query(`SELECT (q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) FROM quizdetails WHERE id=${parseInt(quizID, 10)}`);
+        res.json(result.rows[0]);
+    } catch (err) {
+    console.error(err);
+    }
+})
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
