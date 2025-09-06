@@ -67,7 +67,9 @@ app.post('/teacherlogin', async (req, res) => {
 
 app.post('/quizload', async (req, res) => {
     try {
-      const result = await pool.query('SELECT * FROM quizdetails WHERE id=2');
+      const currentquiz = await pool.query('SELECT quizid FROM currentquiz');
+      const currentquizid = currentquiz.rows[0].quizid;
+      const result = await pool.query(`SELECT * FROM quizdetails WHERE id=${currentquizid}`);
       res.json(result);
     } catch (err) {
     console.error(err);
@@ -89,9 +91,19 @@ app.post('/searchquizid', async (req, res) => {
     const {quizID} = req.body;
     try {
         const result = await pool.query(`SELECT (q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) FROM quizdetails WHERE id=${parseInt(quizID, 10)}`);
-        res.json(result.rows[0]);
+        res.json(result.rows[0].row);
     } catch (err) {
     console.error(err);
+    }
+});
+
+app.post('/makecurrentquiz', async (req, res) => {
+    const {quizID} = req.body;
+    try {
+        await pool.query(`UPDATE currentquiz SET quizid=${quizID} WHERE id=1`);
+        res.send("good");
+    } catch (err) {
+        console.error(err)
     }
 })
 
