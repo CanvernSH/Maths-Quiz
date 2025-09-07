@@ -7,6 +7,8 @@ function TeacherLogin () {
     const [teacherID, setTeacherID] = useState('');
     const [password, setPassword] = useState('');
 
+    const [accessDetails, setAccessDetails] = useState(true);
+
     const handleLogin = async () => {
         await fetch(`${process.env.REACT_APP_BACKEND_URL}/teacherlogin`, {
             method: 'POST',
@@ -44,6 +46,17 @@ function TeacherLogin () {
             <div className='flex-container'>
                 <button onClick={() => {navigate('/')}}>Student Account?</button>
             </div>
+
+            <br></br> <br></br> <br></br><br></br>
+            <div style={{textAlign: 'center'}}>
+                <button style={{backgroundColor: 'grey'}} onClick={() => {setAccessDetails(!accessDetails)}}>Show access details</button>
+                {accessDetails && <p style={{display:'flex', margin: '15px auto', width: 'fit-content', border: '1px solid black'}}>
+                    Access for Teacher account:
+                    <br></br>
+                    Teacher ID: 20 | Password: teacher123
+                </p>}
+            </div>
+
         </div>
     )
 };

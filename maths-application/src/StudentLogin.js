@@ -7,6 +7,8 @@ function StudentLogin() {
     const [studentID, setStudentID] = useState('');
     const [password, setPassword] = useState('');
 
+    const [accessDetails, setAccessDetails] = useState(true);
+
     const handleLogin = async () => {
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/login`, {
             method: 'POST',
@@ -41,6 +43,16 @@ function StudentLogin() {
             <br></br> <br></br> <br></br>
             <div style={{textAlign: 'center'}}>
                 <button style={{backgroundColor: 'lightgreen'}} onClick={() => {navigate('/teacherlogin')}}>Teacher account?</button>
+            </div>
+
+            <br></br> <br></br> <br></br><br></br>
+            <div style={{textAlign: 'center'}}>
+                <button style={{backgroundColor: 'grey'}} onClick={() => {setAccessDetails(!accessDetails)}}>Show access details</button>
+                {accessDetails && <p style={{display:'flex', margin: '15px auto', width: 'fit-content', border: '1px solid black'}}>
+                    Access for Student account:
+                    <br></br>
+                    Student ID: 10 | Password: student123
+                </p>}
             </div>
         </div>
     );
