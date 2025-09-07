@@ -15,9 +15,14 @@ function StudentLogin() {
             headers: { 'Content-Type' : 'application/json' },
             body: JSON.stringify({studentID, password}),
         });
-        console.log(response.json());
-
-        navigate('/home');
+        if (response.ok) {
+            navigate('/home');
+        } else {
+            const response1 = await response.json()
+            console.log(response1);
+            alert(response1.error);
+            
+        }
     };
 
     return (

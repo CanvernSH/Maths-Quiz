@@ -14,6 +14,16 @@ const pool = new Pool({
     ssl: {rejectUnauthorized: false}
 });
 
+app.post('/loadstudentid', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT id FROM users ORDER BY id DESC LIMIT 1');
+        res.json({ message: result.rows[0].id});
+        console.log(result.rows)
+    } catch (err) {
+        console.error(err);
+    }
+})
+
 app.post('/api/users', async (req, res) => {
     const {firstName, surname, dob, classID, password} = req.body;
     try{
@@ -31,9 +41,13 @@ app.post('/api/login', async(req, res) => {
         const result = await pool.query(`SELECT Password FROM users WHERE id=${studentID}`);
         if (password.trim() == result.rows[0].password.trim()) {
             res.json(true);
+        } else {
+
+            res.status(401).json({ error: "Incorrect password" });
         };
     } catch (err) {
         console.error(err);
+        res.status(404).json( {error: 'User does not exist'} );
     }
 });
 

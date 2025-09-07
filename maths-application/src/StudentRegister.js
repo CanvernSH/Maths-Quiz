@@ -1,9 +1,13 @@
 import react, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
+const moment = require('moment');
+
 function StudentRegister() {
     const navigate = useNavigate()
 
+    const [idLoaded, setIdLoaded] = useState(false)
+    const [studentID, setStudentID] = useState('(Loading...)')
     const [firstName, setFirstName] = useState('');
     const [surname, setSurname] = useState('');
     const [dob, setdob] = useState('');
@@ -11,16 +15,36 @@ function StudentRegister() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const loadStudentID = async () => {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/loadstudentid`, {
+            method: 'POST',
+            headers: { 'Content-Type' : 'application/json' },
+            body: JSON.stringify({})
+        });
+        const response1 = await response.json();
+        setStudentID(parseInt(response1.message, 10)+1);
+    };
+
+    if (idLoaded === false) {
+        loadStudentID();
+        setIdLoaded(true);
+    }
+
     const handleRegister = async () => {
-        if (password == confirmPassword) {
+        if (password == confirmPassword && isNaN(parseInt(classID, 10)) === false && moment(dob, 'YYYY-MM-DD', true).isValid()) {
             await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
                 method: 'POST',
                 headers: { 'Content-Type' : 'application/json' },
                 body: JSON.stringify({firstName, surname, dob, classID, password}),
             });
-            alert('33')
+            alert('New Student Added');
+            navigate('/');
+        } else if (!moment(dob, 'YYYY-MM-DD', true).isValid()) {
+            alert('Date of Birth must be in the format: YYYY-MM-DD');
+        } else if (isNaN(parseInt(classID, 10)) === true) {
+            alert('Class ID must be an integer');
         } else {
-            alert('Passwords must match')
+            alert('Passwords must match');
         }
     };
 
@@ -32,7 +56,7 @@ function StudentRegister() {
             </div>
             <div className='flex-container'>
                 Student ID:
-                <textarea></textarea>
+                <textarea disabled value={studentID}></textarea>
             </div>
             <div className='flex-container'>
                 First Name:
@@ -44,7 +68,7 @@ function StudentRegister() {
             </div>
             <div className='flex-container'>
                 Date of Birth:
-                <textarea onChange={(e) => {setdob(e.target.value)}}></textarea>
+                <textarea onChange={(e) => {setdob(e.target.value)}} placeholder='yyyy-mm-dd'></textarea>
             </div>
             <div className='flex-container'>
                 Class ID:
