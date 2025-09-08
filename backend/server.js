@@ -24,13 +24,17 @@ app.use(session( {
     secret: 'secret', 
     resave: false, 
     saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax' 
+    }
 }));
 
 
 app.post('/pro', (req, res) => {
-    //req.session.user=true;
     console.log("test");
-    if (true===true) res.json({message: 'private'});
+    if (req.session.user===true) res.json({message: 'private'});
     else res.sendStatus(401);
 });
 
@@ -63,6 +67,9 @@ app.post('/api/login', async(req, res) => {
     try{
         const result = await pool.query(`SELECT Password FROM users WHERE id=${studentID}`);
         if (password.trim() == result.rows[0].password.trim()) {
+            console.log(req.session.user);
+            req.session.user=true;
+            console.log(req.session.user);
             res.json(true);
         } else {
 
@@ -142,9 +149,14 @@ app.post('/makecurrentquiz', async (req, res) => {
     } catch (err) {
         console.error(err)
     }
-})
+});
 
 
+
+app.post('/logout', (req, res) => {
+    req.session.user = false;
+    res.send("logout successful");
+});
 
 
 const PORT = process.env.PORT || 5000;
