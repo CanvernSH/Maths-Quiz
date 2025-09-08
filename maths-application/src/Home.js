@@ -17,12 +17,23 @@ function Home () {
                 alert("succes");
             } else {
                 alert("No success");
+                navigate('/');
             }
         };
 
         loggedInCheck();
 
     }, []);
+
+    const handleExit = async () => {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify({})
+        });
+        navigate('/');
+    }
 
 
 
@@ -44,7 +55,7 @@ function Home () {
             </div>
 
             <div style={{marginTop: '2vh'}} className='flex-container'>
-                <button className='question-format' onClick={() => {navigate('/')}}> Exit </button>
+                <button className='question-format' onClick={handleExit}> Exit </button>
             </div>
         </div>
     )

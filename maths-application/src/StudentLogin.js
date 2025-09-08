@@ -12,6 +12,7 @@ function StudentLogin() {
     const handleLogin = async () => {
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/login`, {
             method: 'POST',
+            credentials: 'include',
             headers: { 'Content-Type' : 'application/json' },
             body: JSON.stringify({studentID, password}),
         });
