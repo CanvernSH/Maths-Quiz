@@ -2,17 +2,40 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');
+const session = require('express-session');
 
 const app = express();
-app.use(cors());
-app.use(express.json());
-
+const { Pool } = require('pg');
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {rejectUnauthorized: false}
 });
+
+
+app.use(cors({ 
+    origin: 'http://localhost:3000', 
+    credentials: true
+}));
+
+app.use(express.json());
+
+app.use(session( {
+    secret: 'secret', 
+    resave: false, 
+    saveUninitialized: false,
+}));
+
+
+app.post('/pro', (req, res) => {
+    //req.session.user=true;
+    console.log("test");
+    if (true===true) res.json({message: 'private'});
+    else res.sendStatus(401);
+});
+
+
+
 
 app.post('/loadstudentid', async (req, res) => {
     try {
@@ -122,7 +145,10 @@ app.post('/makecurrentquiz', async (req, res) => {
 })
 
 
+
+
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 });
