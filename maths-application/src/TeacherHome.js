@@ -13,7 +13,7 @@ function TeacherHome () {
                 body: JSON.stringify({ temp: 'temp' })
             })
             if (result.ok === true) {
-                alert("succes");
+                console.log("succes");
             } else {
                 alert("No success");
                 navigate('/teacherlogin');
