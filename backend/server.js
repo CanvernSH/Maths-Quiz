@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 
 const app = express();
 const { Pool } = require('pg');
@@ -12,7 +13,6 @@ const pool = new Pool({
     ssl: {rejectUnauthorized: false}
 });
 
-
 app.use(cors({ 
     origin: process.env.ORIGIN_URL, 
     credentials: true
@@ -21,19 +21,22 @@ app.use(cors({
 app.use(express.json());
 
 app.use(session( {
+    store: new pgSession({
+        pool: pool,
+        tableName: 'session',
+    }),
     secret: 'secret', 
     resave: false, 
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         httpOnly: true,
         secure: true,
-        sameSite: 'none' 
-    }
+        sameSite: 'none',
+    },
 }));
 
 
 app.post('/pro', (req, res) => {
-    console.log("test");
     if (req.session.user===true) res.json({message: 'private'});
     else res.sendStatus(401);
 });
@@ -70,7 +73,8 @@ app.post('/api/login', async(req, res) => {
             console.log(req.session.user);
             req.session.user=true;
             console.log(req.session.user);
-            res.json(true);
+            res.json(true)
+
         } else {
 
             res.status(401).json({ error: "Incorrect password" });
