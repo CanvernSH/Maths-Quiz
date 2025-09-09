@@ -21,7 +21,7 @@ function App() {
         <Route path='/teacherregister' element={<TeacherRegister></TeacherRegister>} />
         <Route path='/home' element={<Home></Home>} />
         <Route path='/quiz' element={<Quiz></Quiz>} />
-        <Route path='teacherhome' element={<TeacherHome></TeacherHome>} />
+        <Route path='/teacherhome' element={<TeacherHome></TeacherHome>} />
         <Route path='/createquiz' element={<CreateQuiz></CreateQuiz>} />
         <Route path='/selectoramendquiz' element={<SelectOrAmendQuiz></SelectOrAmendQuiz>} />
       </Routes>

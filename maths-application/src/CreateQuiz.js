@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 function CreateQuiz () {
@@ -34,7 +34,27 @@ function CreateQuiz () {
         })
         alert('New quiz has been created')
         
-    }
+    };
+
+    useEffect(() => {
+        const loggedInCheck = async () => {
+            const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pro2`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify({ temp: 'temp' })
+            })
+            if (result.ok === true) {
+                console.log("succes");
+            } else {
+                alert("No success");
+                navigate('/teacherlogin');
+            }
+        };
+
+        loggedInCheck();
+
+    }, []);
 
 
 

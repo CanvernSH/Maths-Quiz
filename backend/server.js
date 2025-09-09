@@ -21,10 +21,10 @@ app.use(cors({
 app.use(express.json());
 
 app.use(session( {
-    store: new pgSession({
-        pool: pool,
-        tableName: 'session',
-    }),
+    //store: new pgSession({
+    //   pool: pool,
+    //    tableName: 'session',
+    //}),
     secret: 'secret', 
     resave: false, 
     saveUninitialized: true,
@@ -35,9 +35,16 @@ app.use(session( {
     },
 }));
 
+let loggedIn = false;
+let teacherLoggedIn = false
 
 app.post('/pro', (req, res) => {
-    if (req.session.user===true) res.json({message: 'private'});
+    if (loggedIn===true) res.json({message: 'private'});
+    else res.sendStatus(401);
+});
+
+app.post('/pro2', (req, res) => {
+    if (teacherLoggedIn===true) res.json({message: 'private'});
     else res.sendStatus(401);
 });
 
@@ -73,6 +80,8 @@ app.post('/api/login', async(req, res) => {
             console.log(req.session.user);
             req.session.user=true;
             console.log(req.session.user);
+            loggedIn = true;
+            teacherLoggedIn = false;
             res.json(true)
 
         } else {
@@ -100,12 +109,15 @@ app.post('/teacherregister', async (req, res) => {
     };
 });
 
+
 app.post('/teacherlogin', async (req, res) => {
     const {teacherID, password} = req.body;
 
     try {
         const result = await pool.query(`SELECT password FROM teacherdetails WHERE id=${teacherID}`);
         if (password.trim() == result.rows[0].password.trim()) {
+            teacherLoggedIn = true;
+            loggedIn = false;
             res.send('good');
         }
     } catch (err) {
@@ -159,6 +171,8 @@ app.post('/makecurrentquiz', async (req, res) => {
 
 app.post('/logout', (req, res) => {
     req.session.user = false;
+    loggedIn = false;
+    teacherLoggedIn = false;
     res.send("logout successful");
 });
 

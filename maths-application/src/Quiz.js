@@ -6,6 +6,26 @@ import React, {useState, useEffect} from 'react';
 export function Quiz() {
     const navigate = useNavigate('');
 
+    useEffect(() => {
+        const loggedInCheck = async () => {
+            const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pro`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify({ temp: 'temp' })
+            })
+            if (result.ok === true) {
+                console.log("succes");
+            } else {
+                alert("No success");
+                navigate('/');
+            }
+        };
+
+        loggedInCheck();
+
+    }, []);
+
     const [quizLoaded, setQuizLoaded] = useState(false);
 
     const [questionArray, setQuestionArray] = useState([0]);
