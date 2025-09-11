@@ -13,38 +13,44 @@ const pool = new Pool({
     ssl: {rejectUnauthorized: false}
 });
 
+const sessionStore = new pgSession({
+    pool: pool,
+    tableName: 'session'
+})
+
+app.use(express.json());
+
+app.set('trust proxy', 1);
+
+app.use(session( {
+    name: 'sessionId',
+    //store: sessionStore,
+    secret: process.env.SESSION_SECRET,
+    resave: false, 
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        maxAge: 1000 * 60 * 60, // 1 hour
+        domain: process.env.DOMAIN
+    },
+}));
+
 app.use(cors({ 
     origin: process.env.ORIGIN_URL, 
     credentials: true
 }));
 
-app.use(express.json());
-
-app.use(session( {
-    //store: new pgSession({
-    //   pool: pool,
-    //    tableName: 'session',
-    //}),
-    secret: 'secret', 
-    resave: false, 
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-    },
-}));
-
-let loggedIn = false;
-let teacherLoggedIn = false
+req.session.user={student: false, teacher: false};
 
 app.post('/pro', (req, res) => {
-    if (loggedIn===true) res.json({message: 'private'});
+    if (req.session.user.student===true) res.json({message: 'private'});
     else res.sendStatus(401);
 });
 
 app.post('/pro2', (req, res) => {
-    if (teacherLoggedIn===true) res.json({message: 'private'});
+    if (req.session.user.teacher===true) res.json({message: 'private'});
     else res.sendStatus(401);
 });
 
@@ -78,12 +84,9 @@ app.post('/api/login', async(req, res) => {
         const result = await pool.query(`SELECT Password FROM users WHERE id=${studentID}`);
         if (password.trim() == result.rows[0].password.trim()) {
             console.log(req.session.user);
-            req.session.user=true;
+            req.session.user = {student: true, teacher: false};
             console.log(req.session.user);
-            loggedIn = true;
-            teacherLoggedIn = false;
             res.json(true)
-
         } else {
 
             res.status(401).json({ error: "Incorrect password" });
@@ -116,8 +119,7 @@ app.post('/teacherlogin', async (req, res) => {
     try {
         const result = await pool.query(`SELECT password FROM teacherdetails WHERE id=${teacherID}`);
         if (password.trim() == result.rows[0].password.trim()) {
-            teacherLoggedIn = true;
-            loggedIn = false;
+            req.session.user = {student: false, teacher: true};
             res.send('good');
         }
     } catch (err) {
@@ -170,9 +172,7 @@ app.post('/makecurrentquiz', async (req, res) => {
 
 
 app.post('/logout', (req, res) => {
-    req.session.user = false;
-    loggedIn = false;
-    teacherLoggedIn = false;
+    req.session.user = {student: false, teacher: false};
     res.send("logout successful");
 });
 
