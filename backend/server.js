@@ -42,7 +42,12 @@ app.use(cors({
     credentials: true
 }));
 
-req.session.user={student: false, teacher: false};
+app.use((req, res, next) => {
+    if (!req.session.user) {
+        req.session.user = { student: false, teacher: false };
+    }
+    next();
+});
 
 app.post('/pro', (req, res) => {
     if (req.session.user.student===true) res.json({message: 'private'});
