@@ -12,6 +12,7 @@ function TeacherLogin () {
     const handleLogin = async () => {
         await fetch(`${process.env.REACT_APP_BACKEND_URL}/teacherlogin`, {
             method: 'POST',
+            credentials: 'include',
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({teacherID, password})
         });
