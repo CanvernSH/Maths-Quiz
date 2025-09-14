@@ -48,7 +48,7 @@ function CreateQuiz () {
                 console.log("succes");
             } else {
                 alert("No success");
-                navigate('/teacherlogin');
+                navigate('/teacherportal');
             }
         };
 

@@ -18,7 +18,7 @@ export function Quiz() {
                 console.log("succes");
             } else {
                 alert("No success");
-                navigate('/');
+                navigate('/portal');
             }
         };
 

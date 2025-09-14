@@ -17,7 +17,7 @@ function Home () {
                 console.log("succes");
             } else {
                 alert("No success");
-                navigate('/');
+                navigate('/portal');
             }
         };
 
@@ -32,7 +32,7 @@ function Home () {
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify({})
         });
-        navigate('/');
+        navigate('/portal');
     }
 
 

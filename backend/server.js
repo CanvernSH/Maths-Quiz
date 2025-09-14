@@ -59,7 +59,10 @@ app.post('/pro2', (req, res) => {
     else res.sendStatus(401);
 });
 
-
+app.post('/loadserver', async (req, res) => {
+    console.log('Server Loaded');
+    res.send(true);
+});
 
 
 app.post('/loadstudentid', async (req, res) => {

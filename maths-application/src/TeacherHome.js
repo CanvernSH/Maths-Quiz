@@ -16,7 +16,7 @@ function TeacherHome () {
                 console.log("succes");
             } else {
                 alert("No success");
-                navigate('/teacherlogin');
+                navigate('/teacherportal');
             }
         };
 
@@ -32,7 +32,7 @@ function TeacherHome () {
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify({})
         });
-        navigate('/teacherlogin');
+        navigate('/teacherportal');
     }
 
     return (
