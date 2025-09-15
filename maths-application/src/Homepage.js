@@ -73,27 +73,54 @@ import './homepage.css';
 import mathsImage from './img/maths-image.png'
 import {useNavigate} from 'react-router-dom'
 
-const HomePage = () => {
+function HomePage() {
     const navigate = useNavigate();
   return (
-    <div className="homepage-container">
-      <div className="homepage-content">
-        <div className="text-section">
-          <h1 className="title">🧠 Test Your Math Skills!</h1>
-          <p className="subtitle">
-            Ready to challenge your brain with fun and fast paced math quizzes?
-            Track your progress, compete with friends, and become a math master.
-          </p>
-          <button className="signup-button" onClick={() => {navigate('/portal')}}>Sign Up Today</button>
+    <div>
+      <header style={{
+        backgroundColor: 'white',
+        padding: '10px 20px',
+        color: 'black',
+        fontWeight: '600',
+        fontSize: '16px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '30px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.5)',
+      }}>
+        <div style={{width: 'fit-content'}}>🧠 MathAbility</div>
+        <div style={{marginLeft: '5vw', marginRight: '10vw'}}>
+        <nav>
+          <ul style={{ listStyle: 'none', display: 'flex', gap: '3rem', padding: '0'}}>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#code">Code</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#creator">Creator</a></li>
+          </ul>
+        </nav>
         </div>
-        <div className="image-section">
-          <img 
-            src={mathsImage} 
-            alt="Math quiz illustration" 
-            className="hero-image" 
-          />
+      </header>
+
+      <div className="homepage-container">
+        <div className="homepage-content">
+          
+          <div className="text-section">
+            <h1 className="title">✏️ Test Your Math Skills!</h1>
+            <p className="subtitle">
+              Ready to challenge your brain with fun and fast paced math quizzes?
+              Track your progress, compete with friends, and become a math master.
+            </p>
+            <button className="signup-button" onClick={() => {navigate('/portal')}}>Sign Up Today</button>
+          </div>
+
+          <div className="image-section">
+            <img src={mathsImage} alt="Math quiz illustration" className="hero-image"></img>
+          </div>
+
         </div>
       </div>
+
     </div>
   );
 };
