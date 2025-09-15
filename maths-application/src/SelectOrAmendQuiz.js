@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import profileImg from './img/profileImg2.png'
 
 function SelectOrAmendQuiz () {
     const navigate = useNavigate('');
@@ -104,47 +105,91 @@ function SelectOrAmendQuiz () {
 
     }, []);
 
+    const handleExit = async () => {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify({})
+        });
+        navigate('/teacherportal');
+    }
+
     return (
         <div>
-            <h1 style={{textAlign: 'center'}}> Select or Amend Quiz</h1>
+            <header style={{
+                backgroundColor: 'white',
+                padding: '10px 20px',
+                color: 'black',
+                fontWeight: '600',
+                fontSize: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '30px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.5)',
+            }}>
+                <div style={{width: 'fit-content'}}>🧠 MathAbility</div>
+                <div style={{marginLeft: '5vw', marginRight: '10vw'}}>
+                <nav>
+                <ul style={{ listStyle: 'none', display: 'flex', gap: '3rem', padding: '0'}}>
+                    <li><a href="" onClick={() => {navigate('/teacherhome')}}>Home</a></li>
+                    <li><a href="" onClick={() => {navigate('/createquiz')}}>Create Quiz</a></li>
+                    <li><a href="" onClick={() => {navigate('/selectoramendquiz')}}>Amend Quiz</a></li>
+                    <li><a href="" onClick={handleExit}>Log Out</a></li>
+                </ul>
+                </nav>
+                </div>
+                <div>
+                    <img src={profileImg} style={{width: '30px', height: 'auto', cursor: 'pointer'}}></img>
+                </div>
+            </header>
 
-            <div style={{textAlign: 'center'}}>
-                Search Quiz ID: <textarea onChange={(e) => {setQuizID(e.target.value)}}></textarea> <button onClick={handleSearchQuizID}>Search</button>
+
+            <h1 style={{textAlign: 'center', marginTop: '6vh'}}> Select or Amend Quiz</h1>
+
+            <div style={{textAlign: 'center', marginLeft: '3vw', marginTop: '5vh'}}>
+                Search Quiz ID: <input onChange={(e) => {setQuizID(e.target.value)}} style={{borderRadius: '1px', resize: 'none', height: '30px', width: '50px', marginLeft: '1vw', marginBottom: '1vh'}}></input> 
+                <button onClick={handleSearchQuizID} className="btn" style={{width: '70px', padding: '3px 3px', marginLeft: '3vw', color: 'white', backgroundColor: 'blue'}}>Search</button>
             </div>
 
 
 
 
 
-            <div style={{textAlign: 'center', marginTop:'10vh'}}>
-                Q1 <textarea onChange={(e) => {setQ1(e.target.value)}} value={q1}></textarea> A1 <textarea style={{width: '50px'}} onChange={(e) => {setA1(e.target.value)}} value={a1}></textarea>
+            <div style={{textAlign: 'center', marginTop:'3vh'}}>
+                Q1 <input onChange={(e) => {setQ1(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q1}></input> A1 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh'}} onChange={(e) => {setA1(e.target.value)}} value={a1}></input>
                 <br></br>
-                Q2 <textarea onChange={(e) => {setQ2(e.target.value)}} value={q2}></textarea> A2 <textarea style={{width: '50px'}} onChange={(e) => {setA2(e.target.value)}} value={a2}></textarea>
+                Q2 <input onChange={(e) => {setQ2(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q2}></input> A2 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh'}} onChange={(e) => {setA2(e.target.value)}} value={a2}></input>
                 <br></br>
-                Q3 <textarea onChange={(e) => {setQ3(e.target.value)}} value={q3}></textarea> A3 <textarea style={{width: '50px'}} onChange={(e) => {setA3(e.target.value)}} value={a3}></textarea>
+                Q3 <input onChange={(e) => {setQ3(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q3}></input> A3 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh'}} onChange={(e) => {setA3(e.target.value)}} value={a3}></input>
                 <br></br>
-                Q4 <textarea onChange={(e) => {setQ4(e.target.value)}} value={q4}></textarea> A4 <textarea style={{width: '50px'}} onChange={(e) => {setA4(e.target.value)}} value={a4}></textarea>
+                Q4 <input onChange={(e) => {setQ4(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q4}></input> A4 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh'}} onChange={(e) => {setA4(e.target.value)}} value={a4}></input>
                 <br></br>
-                Q5 <textarea onChange={(e) => {setQ5(e.target.value)}} value={q5}></textarea> A5 <textarea style={{width: '50px'}} onChange={(e) => {setA5(e.target.value)}} value={a5}></textarea>
+                Q5 <input onChange={(e) => {setQ5(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q5}></input> A5 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh'}} onChange={(e) => {setA5(e.target.value)}} value={a5}></input>
                 <br></br>
-                Q6 <textarea onChange={(e) => {setQ6(e.target.value)}} value={q6}></textarea> A6 <textarea style={{width: '50px'}} onChange={(e) => {setA6(e.target.value)}} value={a6}></textarea>
+                Q6 <input onChange={(e) => {setQ6(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q6}></input> A6 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh'}} onChange={(e) => {setA6(e.target.value)}} value={a6}></input>
                 <br></br>
-                Q7 <textarea onChange={(e) => {setQ7(e.target.value)}} value={q7}></textarea> A7 <textarea style={{width: '50px'}} onChange={(e) => {setA7(e.target.value)}} value={a7}></textarea>
+                Q7 <input onChange={(e) => {setQ7(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q7}></input> A7 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh'}} onChange={(e) => {setA7(e.target.value)}} value={a7}></input>
                 <br></br>
-                Q8 <textarea onChange={(e) => {setQ8(e.target.value)}} value={q8}></textarea> A8 <textarea style={{width: '50px'}} onChange={(e) => {setA8(e.target.value)}} value={a8}></textarea>
+                Q8 <input onChange={(e) => {setQ8(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q8}></input> A8 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh'}} onChange={(e) => {setA8(e.target.value)}} value={a8}></input>
                 <br></br>
-                Q9 <textarea onChange={(e) => {setQ9(e.target.value)}} value={q9}></textarea> A9 <textarea style={{width: '50px'}} onChange={(e) => {setA9(e.target.value)}} value={a9}></textarea>
+                Q9 <input onChange={(e) => {setQ9(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q9}></input> A9 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh'}} onChange={(e) => {setA9(e.target.value)}} value={a9}></input>
                 <br></br>
-                Q10 <textarea onChange={(e) => {setQ10(e.target.value)}} value={q10}></textarea> A10 <textarea style={{width: '50px'}} onChange={(e) => {setA10(e.target.value)}} value={a10}></textarea>
+                Q10 <input onChange={(e) => {setQ10(e.target.value)}} style={{borderRadius: '10px', resize: 'none', height: '30px', marginBottom: '1vh', marginRight: '3vh'}} value={q10}></input> A10 <input style={{borderRadius: '10px', resize: 'none', height: '30px', width: '50px', marginBottom: '1vh', transform: 'translate(-4px,0px'}} onChange={(e) => {setA10(e.target.value)}} value={a10}></input>
 
+            </div>
+
+            <br></br><br></br>
+            
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <button className="btn start" style={{marginLeft: '20px'}}>Amend Quiz Details</button>
+                <button className="btn" style={{marginLeft: '20px', color: 'white', backgroundColor: 'blueviolet'}} onClick={handleMakeCurrentQuiz}>Make current quiz</button>
             </div>
 
             <br></br><br></br><br></br>
-            
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-                <button style={{marginLeft: '20px'}}>Amend Quiz Details</button>
-                <button style={{marginLeft: '20px'}} onClick={handleMakeCurrentQuiz}>Make current quiz</button>
-            </div>
+            <button className="btn exit" style={{display: 'flex', margin: '0 auto'}} onClick={() => {navigate('/teacherhome')}}>Exit</button>
+
             
 
 

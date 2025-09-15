@@ -61,17 +61,18 @@ function Home () {
             <div style={{marginLeft: '5vw', marginRight: '10vw'}}>
             <nav>
             <ul style={{ listStyle: 'none', display: 'flex', gap: '3rem', padding: '0'}}>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#code">Leaderboard</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#creator">Settings</a></li>
+                <li><a href="">Home</a></li>
+                <li><a href="" onClick={handleQuizButton}>Quiz</a></li>
+                <li><a href="">Leaderboard</a></li>
+                <li><a href="" onClick={handleExit}>Log Out</a></li>
             </ul>
             </nav>
             </div>
             <div>
-                <img src={profileImg} style={{width: '30px', height: 'auto'}}></img>
+                <img src={profileImg} style={{width: '30px', height: 'auto', cursor: 'pointer'}}></img>
             </div>
         </header>
+        
 
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '93vh', background: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif', color: '#333', textAlign: 'center'}}>
             <h1 style={{fontSize: '3rem', marginBottom: '10px'}}>🧠 Maths Quiz Challenge</h1>
