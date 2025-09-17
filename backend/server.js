@@ -173,7 +173,7 @@ app.post('/quizload', async (req, res) => {
 app.post('/savescore', async (req, res) => {
     const {points} = req.body;
     try {
-        const response = await pool.query('INSERT INTO scores (studentid, score) VALUES ($1, $2)', [10, points]);
+        const response = await pool.query('INSERT INTO scores (studentid, score) VALUES ($1, $2)', [req.session.user.id, points]);
         console.log("good");
         console.log(response);
         res.send('OK');
