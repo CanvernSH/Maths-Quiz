@@ -4,12 +4,11 @@ import MathsQuiz from './Homepage.js';
 import Home from './Home.js';
 import Quiz from './Quiz.js';
 import StudentLogin from './StudentLogin.js';
-import StudentRegister from './StudentRegister.js';
 import TeacherLogin from './TeacherLogin.js';
-import TeacherRegister from './TeacherRegister.js';
 import TeacherHome from './TeacherHome.js';
 import CreateQuiz from './CreateQuiz.js';
 import SelectOrAmendQuiz from './SelectOrAmendQuiz.js';
+import Leaderboard from './Leaderboard.js';
 
 
 function App() {
@@ -24,6 +23,7 @@ function App() {
         <Route path='/teacherhome' element={<TeacherHome></TeacherHome>} />
         <Route path='/createquiz' element={<CreateQuiz></CreateQuiz>} />
         <Route path='/selectoramendquiz' element={<SelectOrAmendQuiz></SelectOrAmendQuiz>} />
+        <Route path='/leaderboard' element={<Leaderboard></Leaderboard>} />
       </Routes>
     </BrowserRouter>
   );

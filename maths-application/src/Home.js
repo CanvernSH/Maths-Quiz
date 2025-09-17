@@ -27,6 +27,7 @@ function Home () {
 
     }, []);
 
+
     const handleExit = async () => {
         await fetch(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
             method: 'POST',
@@ -45,7 +46,7 @@ function Home () {
 
     return (
         <div>
-            <header style={{
+        <header style={{
             backgroundColor: 'white',
             padding: '10px 20px',
             color: 'black',
@@ -63,7 +64,7 @@ function Home () {
             <ul style={{ listStyle: 'none', display: 'flex', gap: '3rem', padding: '0'}}>
                 <li><a href="">Home</a></li>
                 <li><a href="" onClick={handleQuizButton}>Quiz</a></li>
-                <li><a href="">Leaderboard</a></li>
+                <li><a href="" onClick={() => {navigate('/leaderboard')}}>Leaderboard</a></li>
                 <li><a href="" onClick={handleExit}>Log Out</a></li>
             </ul>
             </nav>
@@ -80,7 +81,7 @@ function Home () {
 
             <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
                 <button className="btn start" onClick={handleQuizButton}>Start Quiz</button>
-                <button className="btn leaderboard">Leaderboard</button>
+                <button className="btn leaderboard" onClick={() => {navigate('/leaderboard')}}>Leaderboard</button>
                 <button className="btn exit" onClick={handleExit}>Exit</button>
             </div>
         </div>

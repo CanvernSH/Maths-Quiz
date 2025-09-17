@@ -74,7 +74,7 @@ function TeacherHome () {
             <div style={{display: 'flex', flexDirection: 'row', gap: '20px'}}>
                 <button className="btn start" onClick={() => {navigate('/createquiz')}}>Create Quiz</button>
                 <button className="btn start" style={{color: 'white', backgroundColor: 'blueviolet'}} onClick={() => {navigate('/selectoramendquiz')}}>Select or Amend Quiz</button>
-                <button className="btn leaderboard">Leaderboard</button>
+                <button className="btn leaderboard" onClick={() => {navigate('/leaderboard')}}>Leaderboard</button>
             </div>
             <br></br><br></br>
 

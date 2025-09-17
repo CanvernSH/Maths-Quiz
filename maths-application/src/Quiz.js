@@ -67,33 +67,47 @@ export function Quiz() {
           setQuestionText(questionArray[questionNumber + 1]);
           setCorrectAlready(false);
         } else{
+            handleScore();
             navigate('/home');
         }
     };
 
     const handleSubmit = () => {
         if (response == answerArray[questionNumber]) {
-            alert('Correct. You now have one point');
+            alert('Correct. You have gained one point');
             if (correctAlready === false) {
                 setPoints(points+1);
                 setCorrectAlready(true);
-            }
+            };
+            handleNextQuestion();
         } else{
             alert('Incorrect, please try again')
         };
+        setResponse('');
     };
+
+    const handleScore = async () => {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/savescore`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify({points})
+        });
+        alert('Score Saved');
+        }
+
 
 
 
     return (
         <div>
             <div style={{marginTop: '27vh', textAlign: 'center'}}>
-                <h2>This is the quiz</h2>
+                <h2>🧠 MathAbility</h2>
                 <br></br>
                 <p style={{fontSize: '20px'}}>Q{questionNumber+1}: {questionText}</p>
             </div>
             <div style={{transform: 'translate(60px, 0px)', marginTop: '32px'}} className='flex-container'>
-                <textarea onChange={(e) => setResponse(e.target.value)} className='text-area1'></textarea>
+                <input value={response} onChange={(e) => setResponse(e.target.value)} className='text-area1'></input>
                 <button style={{marginLeft: '35px', height: '30px', width: '80px', fontSize: 'large'}} onClick={handleSubmit}>Submit</button>
             </div>
             <div style={{marginTop: '20px'}} className='flex-container'>

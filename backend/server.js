@@ -30,10 +30,10 @@ app.use(session( {
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: 'lax',
         maxAge: 1000 * 60 * 60, // 1 hour
-        domain: process.env.DOMAIN
+        //domain: process.env.DOMAIN
     },
 }));
 
@@ -146,6 +146,19 @@ app.post('/quizload', async (req, res) => {
     }
 })
 
+app.post('/savescore', async (req, res) => {
+    const {points} = req.body;
+    try {
+        const response = await pool.query('INSERT INTO scores (studentid, score) VALUES ($1, $2)', [10, points]);
+        console.log("good");
+        console.log(response);
+        res.send('OK');
+    } catch (err) {
+        console.error(err);
+        res.status(500);
+    }
+})
+
 app.post('/createquiz', async (req, res) => {
     const {q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10} = req.body;
     try {
@@ -177,12 +190,23 @@ app.post('/makecurrentquiz', async (req, res) => {
     }
 });
 
+app.post('/collectscores', async (req, res) => {
+    try {
+        const response = await pool.query('SELECT users.firstname, scores.score FROM scores JOIN users ON scores.studentid = users.id;');
+        console.log(response.rows);
+        res.json(response.rows);
+    } catch (err) {
+        console.error(err);
+    }
+})
+
 
 
 app.post('/logout', (req, res) => {
     req.session.user = {student: false, teacher: false};
     res.send("logout successful");
 });
+
 
 
 const PORT = process.env.PORT || 5000;

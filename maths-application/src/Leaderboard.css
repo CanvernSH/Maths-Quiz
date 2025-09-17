@@ -1,0 +1,41 @@
+/* Leaderboard.css */
+.leaderboard-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.leaderboard-table th {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+.leaderboard-table tr:nth-child(1) td {
+  font-weight: bold;
+  color: gold;
+}
+.leaderboard-table tr:nth-child(2) td {
+  font-weight: bold;
+  color: silver;
+}
+.leaderboard-table tr:nth-child(3) td {
+  font-weight: bold;
+  color: #cd7f32; /* bronze */
+}
