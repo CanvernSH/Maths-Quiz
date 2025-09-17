@@ -6,6 +6,8 @@ import React, {useState, useEffect} from 'react';
 export function Quiz() {
     const navigate = useNavigate('');
 
+    const [nextQuestion, setNextQuestion] = useState('Next Question')
+
     useEffect(() => {
         const loggedInCheck = async () => {
             const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pro`, {
@@ -61,12 +63,17 @@ export function Quiz() {
 
     const [correctAlready, setCorrectAlready] = useState(false);
 
+    const [quizEnd, setQuizEnd] = useState(false);
+
     const handleNextQuestion = () => {
         setQuestionNumber(questionNumber + 1);
         if (questionNumber + 1 < questionArray.length) {
           setQuestionText(questionArray[questionNumber + 1]);
           setCorrectAlready(false);
-        } else{
+        } else if (quizEnd===false) {
+            setNextQuestion('End Quiz')
+            setQuizEnd(true);
+        } else {
             handleScore();
             navigate('/home');
         }
@@ -104,14 +111,16 @@ export function Quiz() {
             <div style={{marginTop: '27vh', textAlign: 'center'}}>
                 <h2>🧠 MathAbility</h2>
                 <br></br>
-                <p style={{fontSize: '20px'}}>Q{questionNumber+1}: {questionText}</p>
+                {!quizEnd && <p style={{fontSize: '20px'}}>Q{questionNumber+1}: {questionText}</p>}
+                {quizEnd && <p style={{fontSize: '20px'}}>End of Quiz</p>}
             </div>
-            <div style={{transform: 'translate(60px, 0px)', marginTop: '32px'}} className='flex-container'>
+            {!quizEnd && <div style={{transform: 'translate(60px, 0px)', marginTop: '32px'}} className='flex-container'>
                 <input value={response} onChange={(e) => setResponse(e.target.value)} className='text-area1'></input>
                 <button style={{marginLeft: '35px', height: '30px', width: '80px', fontSize: 'large'}} onClick={handleSubmit}>Submit</button>
-            </div>
+            </div>}
+            {quizEnd && <div><br></br></div>}
             <div style={{marginTop: '20px'}} className='flex-container'>
-                <button onClick={handleNextQuestion} className='question-format2'>Next Question</button>
+                <button onClick={handleNextQuestion} className='question-format2'>{nextQuestion}</button>
             </div>
             <div style={{transform: 'translate(0px, 40px'}} className='flex-container'>
                 <p style={{fontSize: '16px'}}>Points = {points}</p>

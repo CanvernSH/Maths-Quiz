@@ -30,10 +30,10 @@ app.use(session( {
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: 'lax',
         maxAge: 1000 * 60 * 60, // 1 hour
-        domain: process.env.DOMAIN
+        //domain: process.env.DOMAIN
     },
 }));
 
