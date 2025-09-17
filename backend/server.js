@@ -60,6 +60,29 @@ app.post('/pro2', (req, res) => {
     else res.sendStatus(401);
 });
 
+app.post('/pro3', async (req, res) => {
+    if (req.session.user.student===true) {
+        try {
+            const response = await pool.query(`SELECT id, firstname, surname, dob, classid FROM users WHERE id=${req.session.user.id}`);
+            console.log(response.rows[0]);
+            res.json(response.rows[0]);
+        } catch (err) {
+            console.error(err);
+        }
+    } else if (req.session.user.teacher===true) {
+        try {
+            const response = await pool.query(`SELECT id, firstname, surname FROM teacherdetails WHERE id=${req.session.user.id}`);
+            console.log(response.rows[0]);
+            console.log(response.rows[0]);
+            res.json(response.rows[0])
+        } catch (err) {
+            console.error(err)
+        }
+    } else {
+        res.sendStatus(401);
+    }
+})
+
 app.post('/loadserver', async (req, res) => {
     console.log('Server Loaded');
     res.send(true);
@@ -93,7 +116,7 @@ app.post('/api/login', async(req, res) => {
         const result = await pool.query(`SELECT Password FROM users WHERE id=${studentID}`);
         if (password.trim() == result.rows[0].password.trim()) {
             console.log(req.session.user);
-            req.session.user = {student: true, teacher: false};
+            req.session.user = {student: true, teacher: false, id: studentID};
             console.log(req.session.user);
             res.json(true)
         } else {
@@ -128,7 +151,7 @@ app.post('/teacherlogin', async (req, res) => {
     try {
         const result = await pool.query(`SELECT password FROM teacherdetails WHERE id=${teacherID}`);
         if (password.trim() == result.rows[0].password.trim()) {
-            req.session.user = {student: false, teacher: true};
+            req.session.user = {student: false, teacher: true, id: teacherID};
             res.send('good');
         }
     } catch (err) {
@@ -204,7 +227,7 @@ app.post('/collectscores', async (req, res) => {
 
 
 app.post('/logout', (req, res) => {
-    req.session.user = {student: false, teacher: false};
+    req.session.user = {student: false, teacher: false, id: 0};
     res.send("logout successful");
 });
 

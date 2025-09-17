@@ -9,7 +9,7 @@ import TeacherHome from './TeacherHome.js';
 import CreateQuiz from './CreateQuiz.js';
 import SelectOrAmendQuiz from './SelectOrAmendQuiz.js';
 import Leaderboard from './Leaderboard.js';
-
+import User from './User.js';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Route path='/createquiz' element={<CreateQuiz></CreateQuiz>} />
         <Route path='/selectoramendquiz' element={<SelectOrAmendQuiz></SelectOrAmendQuiz>} />
         <Route path='/leaderboard' element={<Leaderboard></Leaderboard>} />
+        <Route path='/user' element={<User></User>} />
       </Routes>
     </BrowserRouter>
   );

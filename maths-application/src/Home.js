@@ -70,7 +70,7 @@ function Home () {
             </nav>
             </div>
             <div>
-                <img src={profileImg} style={{width: '30px', height: 'auto', cursor: 'pointer'}}></img>
+                <img src={profileImg} onClick={() => {navigate('/user')}} style={{width: '30px', height: 'auto', cursor: 'pointer'}}></img>
             </div>
         </header>
         
