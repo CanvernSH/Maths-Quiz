@@ -30,10 +30,11 @@ app.use(session( {
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
         maxAge: 1000 * 60 * 60, // 1 hour
         //domain: process.env.DOMAIN
+        ...(process.env.NODE_ENV === 'production' && process.env.DOMAIN ? {domain: process.env.DOMAIN } : {})
     },
 }));
 
